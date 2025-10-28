@@ -7,21 +7,21 @@ document.getElementById("add-ingredient-btn").addEventListener("click", (event) 
     alert("Ingredient cannot be empty");
     return;
   }
-  const ulElement = document.getElementById("ingredient-list");
-  const liElement = document.createElement("li");
-  liElement.textContent = ingredient;
-  ulElement.appendChild(liElement);
+  const ulIngredientElement = document.getElementById("ingredient-list");
+  const liIngredientElement = document.createElement("li");
+  liIngredientElement.textContent = ingredient;
+  ulIngredientElement.appendChild(liIngredientElement);
   document.getElementById("ingredient-txt").value = "";
 });
 
 document.getElementById("ingredient-list").addEventListener('click', (event) => {
-  const ulElement = document.getElementById("ingredient-list");
-  ulElement.removeChild(event.target);
+  const ulIngredientElement = document.getElementById("ingredient-list");
+  ulIngredientElement.removeChild(event.target);
 });
 
 document.getElementById("ingredient-list").addEventListener('touchstart', (event) => {
-  const ulElement = document.getElementById("ingredient-list");
-  ulElement.removeChild(event.target);
+  const ulIngredientElement = document.getElementById("ingredient-list");
+  ulIngredientElement.removeChild(event.target);
   event.preventDefault();
 });
 
@@ -30,11 +30,11 @@ document.getElementById("generate-recipe-btn").addEventListener("click", (event)
   let ingredientList = "";
   const guardrailsRecipe = `
 When generating a recipe, use only the ingredients provided by the user—do not add, substitute, or assume any other ingredients. Your response must include a complete list of those ingredients and clear, step-by-step instructions for preparation and cooking. Make sure each ingredient is a valid food item; if any ingredient is not recognizable as food, do not proceed with the recipe. Always provide a name for the recipe based on the ingredients used. You may use water, alliums (such as onions, garlic, leeks, shallots, or scallions), and garnish. Stay strictly focused on food and the recipe itself; do not include unrelated topics, commentary, or additional information. If the user does not provide any ingredients, respond with: “Please provide at least one ingredient for me to create a simple recipe. I need ingredients to give you a recipe, a list of ingredients, and step-by-step instructions.”`;
-  const ulElement = document.getElementById("ingredient-list");
-  const liElement = ulElement.getElementsByTagName("li");
+  const ulIngredientElement = document.getElementById("ingredient-list");
+  const liIngredientElement = ulIngredientElement.getElementsByTagName("li");
   document.getElementById("gemini-story").innerText = "";
-  for(let i = 0; i < liElement.length ; i++) {
-    ingredientList += `${i+1} +: ${liElement[i].textContent} `;
+  for(let i = 0; i < liIngredientElement.length ; i++) {
+    ingredientList += `${i+1} +: ${liIngredientElement[i].textContent} `;
   }
   generateText(ingredientList, "gemini-recipe", guardrailsRecipe);
 });
